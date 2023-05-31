@@ -1,0 +1,26 @@
+{
+	"name": "first-full-stack",
+	"version": "1.0.0",
+	"description": "Blog on MERN Stack\r # BackEnd\r ## Express / Validator\r ### (веб-сервер / валидация запросов)\r ## MongoDB / Mongoose\r ### (Работа с базой данных)\r ## JSON Web Token\r ### (аунтификация / авторизация)\r ## Multer\r ### (Загрузка файлов и изображений)\r ## Bcrypt\r ### (Шифрование запроса)\r # FrontEnd\r ## Redux Toolkit \r ### (глобальный стейт менеджер)\r ## React Hook Form\r ### (работа с формами)\r ## React Router V6\r ### (роутинг)\r ## React Markdown / Simple Editor\r ### (редактирование статей)\r ## Axios\r ### (отправка запросов на сервер)",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"start": "node index.js",
+		"start:dev": "nodemon index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/koustakken/First-Full-Stack.git"
+	},
+	"author": "me",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/koustakken/First-Full-Stack/issues"
+	},
+	"homepage": "https://github.com/koustakken/First-Full-Stack#readme",
+	"dependencies": {
+		"express": "^4.18.2",
+		"jsonwebtoken": "^9.0.0",
+		"nodemon": "^2.0.22"
+	}
+}
