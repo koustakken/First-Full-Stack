@@ -33,10 +33,11 @@ export const getAll = async (req, res) => {
 }
 
 // получение одной статьи
-export const getOne = (req, res) => {
+export const getOne = async (req, res) => {
 	try {
 		const postId = req.params.id;
-		PostModel.findOneAndUpdate(
+		console.log(postId, "@postid")
+		await PostModel.findOneAndUpdate(
 			{
 				_id: postId,
 			},
@@ -46,10 +47,10 @@ export const getOne = (req, res) => {
 			{
 				returnDocument: 'after',
 			},
-		).then((err, doc) => {
-				if (!err) {
+			(err, doc) => {
+				if (err) {
 					console.log(err)
-					return res.status(500).json({ message: "Не удалось получить статью 1" })
+					return res.status(500).json({ message: "Не удалось получить статью" })
 				}
 
 				if (!doc) {
@@ -57,14 +58,63 @@ export const getOne = (req, res) => {
 						message: "Статья не найдена"
 					})
 				}
-				console.log(doc)
+				
 				res.json(doc)
 			},
 		)
 	} catch (error) {
 		console.log(error)
-		res.status(500).json({ message: "Не удалось получить статью 2" })
+		res.status(500).json({ message: "Не удалось получить статью" })
 	}
 }
 
 // удаление статьи
+export const remove = async (req, res) => {
+	try {
+		const postId = req.params.id
+		await PostModel.findOneAndDelete({
+			_id: postId,
+		},
+		(err, doc) => {
+			if (err) {
+				console.log(err)
+				return res.status(500).json({ message: 'Не удалось удалить статью' })
+			}
+
+			if (!doc) {
+				return res.status(400).json({ message: 'Не удалось найти статью' })
+			}
+
+			res.json({ success: true })
+			}
+		)
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ message: "Не удалось получить статью" })
+	}
+}
+
+// обновление статьи
+export const update = async (req, res) => {
+	try {
+		const postId = req.params.id
+
+		await PostModel.updateOne(
+			{ _id: postId },
+			{ 	
+				title: req.body.title,
+				text: req.body.text,
+				tags: req.body.tags,
+				imageUrl: req.body.imageUrl,
+				user: req.userId, 
+			}
+		)
+
+		res.json({
+			success: true
+		})
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ message: "Не удалось получить статью" })
+	}
+}
